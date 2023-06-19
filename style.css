@@ -6,4 +6,5 @@
 .webgl, canvas {
   overflow-x: hidden;
   overflow-y: hidden;
+  color: #060214;
 }

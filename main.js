@@ -13,14 +13,14 @@ import * as dat from 'lil-gui'
  * Base
 */
 // Debug
-// const gui = new dat.GUI()
+const gui = new dat.GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color('#826fff')
+scene.background = new THREE.Color('#060214')
 
 // Axeshelper
 
@@ -31,7 +31,19 @@ scene.background = new THREE.Color('#826fff')
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
-// const matcapMaterial = textureLoader.load('/textures/matcaps/7.png')
+const matcapMaterial1 = textureLoader.load('/textures/matcaps/1.png')
+const matcapMaterial2 = textureLoader.load('/textures/matcaps/2.png')
+const matcapMaterial3 = textureLoader.load('/textures/matcaps/3.png')
+const matcapMaterial4 = textureLoader.load('/textures/matcaps/4.png')
+const matcapMaterial5 = textureLoader.load('/textures/matcaps/5.png')
+const matcapMaterial6 = textureLoader.load('/textures/matcaps/6.png')
+const matcapMaterial7 = textureLoader.load('/textures/matcaps/7.png')
+const matcapMaterial8 = textureLoader.load('/textures/matcaps/8.png')
+const matcapMaterial9 = textureLoader.load('/textures/matcaps/9.png')
+
+//Material
+const material = new THREE.MeshMatcapMaterial()
+material.matcap = matcapMaterial9
 
 /**
  * Object
@@ -51,29 +63,17 @@ const sizes = {
     height: window.innerHeight
 }
 
-window.addEventListener('resize', () =>
-{
-    // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
 
-    // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
-
-    // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
 
 /**
  * Camera
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = 1
-camera.position.y = 1
-camera.position.z = 5
+camera.position.x = 1.975754137945633
+camera.position.y = 0.7415067867547493
+camera.position.z = 7.969940009179165
+
 scene.add(camera)
 
 // FontLoader
@@ -100,10 +100,8 @@ fontLoader.load(
         // )
         textGeo.center()
 
-        const textMat = new THREE.MeshNormalMaterial()
-        textMat.wireframe = false
-        // textMat.matcap = matcapMaterial
-        const text = new THREE.Mesh(textGeo, textMat)
+        const text = new THREE.Mesh(textGeo, material)
+
         scene.add(text)
     }
 )
@@ -130,7 +128,20 @@ const donutGeo = new THREE.TorusGeometry(0.3, 0.2, 20, 45)
 const cubeGeo = new THREE.BoxGeometry(0.2, 0.2, 0.2)
 const sphereGeo = new THREE.SphereGeometry(0.2, 32, 32)
 const coneGeo = new THREE.ConeGeometry(0.2, 0.4, 32, 32)
-const material = new THREE.MeshNormalMaterial()
+
+
+gui.add(material, 'matcap', {
+    1: matcapMaterial1,
+    2: matcapMaterial2,
+    3: matcapMaterial3,
+    4: matcapMaterial4,
+    5: matcapMaterial5,
+    6: matcapMaterial6,
+    7: matcapMaterial7,
+    8: matcapMaterial8,
+    9: matcapMaterial9}
+    )
+
 for(let i=0; i < 100; i++) {
     shapeMaker(donutGeo, material)
     shapeMaker(cubeGeo, material)
@@ -146,6 +157,7 @@ console.timeEnd('donut')
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 
+
 /**
  * Renderer
  */
@@ -154,6 +166,21 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+window.addEventListener('resize', () =>
+{
+    // Update sizes
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+
+    // Update camera
+    camera.aspect = sizes.width / sizes.height
+    camera.updateProjectionMatrix()
+
+    // Update renderer
+    renderer.setSize(sizes.width, sizes.height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
 
 /**
  * Animate
