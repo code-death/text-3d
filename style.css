@@ -1,0 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.webgl, canvas {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
