@@ -20,7 +20,7 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color('#060214')
+scene.background = new THREE.Color('#04010e')
 
 // Axeshelper
 
